@@ -9,7 +9,7 @@ export const getTodoAction = async ({userId} : {userId : string | null}) => {
    return await prisma.todo.findMany(
     {
       where : {
-        user_id : userId as string
+       user_Id : userId as string
       },
       orderBy : {
     createdAt : "desc"
@@ -36,19 +36,21 @@ export const createTodoAction = async ({
     completed,
     userId,
   }: {
-    title: string;
-    body?: string | undefined;
-    completed: boolean;
-    userId: string | null;
+    title: string,
+    body?: string | undefined,
+    completed: boolean,
+    userId: string | null,
   }  )  => {
-   
+    if (!userId) {
+      throw new Error("User ID is required to create a todo");
+    }
   
     await prisma.todo.create({
       data: {
+        user_Id : userId as string,
         title,
         body,
         completed,
-        user_id: userId as string, // userId is now guaranteed to be non-null
       },
     });
   
