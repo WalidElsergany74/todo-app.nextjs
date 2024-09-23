@@ -15,7 +15,7 @@ export const getTodoAction = async ({userId} : {userId : string | null}) => {
     createdAt : "desc"
    }});
 };
-export const updateTodoAction = async ({id , title , body , completed} : {title : string , body : string , id : string , completed : boolean}) => {
+export const updateTodoAction = async ({id , title , body , completed} : {title : string , body? : string | undefined, id : string , completed : boolean}) => {
  await prisma.todo.update({
     where : {
         id,
@@ -37,10 +37,10 @@ export const createTodoAction = async ({
     userId,
   }: {
     title: string;
-    body: string;
+    body?: string | undefined;
     completed: boolean;
     userId: string | null;
-  }) => {
+  }  )  => {
    
   
     await prisma.todo.create({
