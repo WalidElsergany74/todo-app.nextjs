@@ -1,5 +1,5 @@
 'use server'
-import { ITodo } from '@/interfaces';
+
 import { PrismaClient } from '@prisma/client'
 import { revalidatePath } from 'next/cache';
 
@@ -15,7 +15,7 @@ export const getTodoAction = async ({userId} : {userId : string | null}) => {
     createdAt : "desc"
    }});
 };
-export const updateTodoAction = async ({id , title , body , completed} : ITodo) => {
+export const updateTodoAction = async ({id , title , body , completed} : {title : string , body : string , id : string , completed : boolean}) => {
  await prisma.todo.update({
     where : {
         id,
